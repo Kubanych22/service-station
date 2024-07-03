@@ -2,6 +2,11 @@
 export class Car {
   #maxTank;
   constructor(brand, model, maxTank) {
+    const proto = Object.getPrototypeOf(this);
+    if (proto.constructor === Car) {
+      throw new Error('Это абстрактный класс.')
+    }
+    
     this.brand = brand;
     this.model = model;
     this.#maxTank = maxTank;
@@ -49,6 +54,9 @@ export class PassengerCar extends Car {
     super(brand, model, maxTank);
     this.typeFuel = typeFuel;
   }
+  getTitle() {
+    return `Автомобиль ${this.brand} ${this.model}`;
+  }
 }
 
 export class Truck extends Car {
@@ -57,7 +65,12 @@ export class Truck extends Car {
     super(brand, model, maxTank);
     this.typeFuel = typeFuel;
   }
+  getTitle() {
+    return `Грузовик ${this.brand} ${this.model}`;
+  }
 }
 
+console.clear();
+console.log(new PassengerCar('Volvo', 'XC60', 60));
 
 
